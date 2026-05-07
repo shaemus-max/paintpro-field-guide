@@ -10,13 +10,102 @@ import PricingSection from '../components/PricingSection'
 
 /* ── Small helpers ────────────────────────────────────────── */
 
-function QuickSpecTile({ icon, label, value }) {
-  if (!value) return null
+function QuickSpecTile({ icon, label, value, fieldKey, product, type = 'text', editMode, saveOverride, clearFieldOverride }) {
+  const [editing, setEditing]   = useState(false)
+  const [draft,   setDraft]     = useState('')
+  const [chips,   setChips]     = useState([])
+  const [chipIn,  setChipIn]    = useState('')
+  const inputRef = useRef(null)
+
+  const isOv      = editMode && fieldKey && product?._overriddenFields?.includes(fieldKey)
+  const displayVal = Array.isArray(value) ? value.join(', ') : value
+
+  if (!displayVal && !editMode) return null
+
+  const startEdit = () => {
+    if (!editMode || !fieldKey) return
+    if (type === 'chips') setChips(Array.isArray(value) ? [...value] : [])
+    else setDraft(value ?? '')
+    setEditing(true)
+  }
+
+  const handleSave = () => {
+    const payload = type === 'chips' ? chips : draft
+    saveOverride?.(product.id, { [fieldKey]: payload })
+    setEditing(false)
+  }
+
+  const addChip = () => {
+    const v = chipIn.trim()
+    if (v && !chips.includes(v)) setChips(p => [...p, v])
+    setChipIn('')
+    inputRef.current?.focus()
+  }
+
+  if (editing) {
+    return (
+      <div className="bg-amber-50 rounded-xl p-3 border border-amber-200 shrink-0" style={{ minWidth: type === 'chips' ? 200 : 140 }}>
+        <p className="text-xs font-semibold text-amber-800 mb-2">{icon} {label}</p>
+        {type === 'chips' ? (
+          <>
+            <div className="flex flex-wrap gap-1 mb-2">
+              {chips.map(c => (
+                <span key={c} className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white border border-gray-200 rounded-full text-xs text-gray-700">
+                  {c}
+                  <button onClick={() => setChips(p => p.filter(x => x !== c))} className="text-gray-400 hover:text-red-500 leading-none">×</button>
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-1 mb-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={chipIn}
+                onChange={e => setChipIn(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addChip() } }}
+                placeholder="Add…"
+                autoFocus
+                className="flex-1 min-w-0 border border-gray-200 rounded px-1.5 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-brand-dulux"
+              />
+              <button onClick={addChip} className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold hover:bg-gray-200">+</button>
+            </div>
+          </>
+        ) : (
+          <input
+            ref={inputRef}
+            type="text"
+            value={draft}
+            autoFocus
+            onChange={e => setDraft(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSave(); if (e.key === 'Escape') setEditing(false) }}
+            className="w-full border border-brand-dulux/40 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-brand-dulux mb-2"
+          />
+        )}
+        <div className="flex gap-1 flex-wrap">
+          <button onClick={handleSave} className="px-2 py-1 bg-brand-dulux text-white rounded text-xs font-semibold hover:bg-red-800">✓ Save</button>
+          <button onClick={() => setEditing(false)} className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold hover:bg-gray-200">✕</button>
+          {isOv && <button onClick={() => { clearFieldOverride?.(product.id, fieldKey); setEditing(false) }} className="px-2 py-1 bg-orange-100 text-orange-700 rounded text-xs font-semibold hover:bg-orange-200">↺</button>}
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="bg-gray-50 rounded-xl p-3 text-center min-w-[100px]">
+    <div
+      className={`bg-gray-50 rounded-xl p-3 text-center min-w-[100px] relative group shrink-0 ${editMode && fieldKey ? 'hover:bg-amber-50 cursor-pointer' : ''}`}
+      onClick={startEdit}
+    >
+      {isOv && <span className="absolute top-1.5 left-1.5 w-2 h-2 rounded-full bg-green-500" />}
       <div className="text-xl mb-0.5">{icon}</div>
       <div className="text-xs text-gray-500 font-medium mb-0.5">{label}</div>
-      <div className="text-sm font-semibold text-gray-900 leading-tight">{value}</div>
+      <div className="text-sm font-semibold text-gray-900 leading-tight">
+        {displayVal || (editMode ? <span className="text-gray-300 text-xs">—</span> : null)}
+      </div>
+      {editMode && fieldKey && (
+        <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-xs text-blue-400">✏</span>
+        </div>
+      )}
     </div>
   )
 }
@@ -367,16 +456,15 @@ export default function ProductDetailPage({
             {/* Quick spec tiles */}
             <div className="card p-4">
               <h2 className="section-title text-lg mb-3">Quick Specs</h2>
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {product.sheens?.length > 0 && (
-                  <QuickSpecTile icon="✨" label="Sheens" value={product.sheens.join(', ')} />
-                )}
-                <QuickSpecTile icon="📐" label="Coverage"  value={product.coverage} />
-                <QuickSpecTile icon="🌿" label="VOC"       value={product.vocLevel || product.voc} />
-                <QuickSpecTile icon="⏰" label="Touch Dry" value={product.touchDry} />
-                <QuickSpecTile icon="🔄" label="Recoat"    value={product.recoat} />
-                <QuickSpecTile icon="📏" label="Film (Wet)" value={product.filmThicknessWet} />
-                <QuickSpecTile icon="🧪" label="Finish"    value={product.finish} />
+              <div className="flex gap-2 overflow-x-auto pb-1 items-start">
+                <QuickSpecTile icon="✨" label="Sheens"     fieldKey="sheens"           value={product.sheens}           product={product} type="chips" editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="📐" label="Coverage"   fieldKey="coverage"         value={product.coverage}         product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="🌿" label="VOC"        fieldKey="voc"              value={product.voc || product.vocLevel} product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="⏰" label="Touch Dry"  fieldKey="touchDry"         value={product.touchDry}         product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="🔄" label="Recoat"     fieldKey="recoat"           value={product.recoat}           product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="📏" label="Film (Wet)" fieldKey="filmThicknessWet" value={product.filmThicknessWet} product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="📐" label="Film (Dry)" fieldKey="filmThicknessDry" value={product.filmThicknessDry} product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <QuickSpecTile icon="🧪" label="Finish"     fieldKey="finish"           value={product.finish}           product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
               </div>
             </div>
 
@@ -384,31 +472,17 @@ export default function ProductDetailPage({
             <div className="card p-4">
               <h2 className="section-title text-lg">Technical Data</h2>
               <div className="divide-y divide-gray-100">
-                <SpecRow label="Sheens"       fieldKey="sheens"           product={product} type="chips" editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="Coverage"     fieldKey="coverage"         product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="VOC"          fieldKey="voc"              product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="Touch Dry"    fieldKey="touchDry"         product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="Recoat"       fieldKey="recoat"           product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="Film (Wet)"   fieldKey="filmThicknessWet" product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                <SpecRow label="Finish Type"  fieldKey="finish"           product={product} editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
-                {product.bases?.length > 0 && (
-                  <div className="spec-row">
-                    <span className="spec-label">Bases</span>
-                    <span className="spec-value">{product.bases.join(', ')}</span>
-                  </div>
-                )}
-                {product.sizes?.length > 0 && (
-                  <div className="spec-row">
-                    <span className="spec-label">Sizes</span>
-                    <span className="spec-value">{product.sizes.join(', ')}</span>
-                  </div>
-                )}
-                {product.productCode && (
-                  <div className="spec-row">
-                    <span className="spec-label">Product Code</span>
-                    <span className="spec-value font-mono">{product.productCode}</span>
-                  </div>
-                )}
+                <SpecRow label="Sheens"        fieldKey="sheens"           product={product} type="chips" editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Coverage"      fieldKey="coverage"         product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="VOC"           fieldKey="voc"              product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Touch Dry"     fieldKey="touchDry"         product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Recoat"        fieldKey="recoat"           product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Film (Wet)"    fieldKey="filmThicknessWet" product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Film (Dry)"    fieldKey="filmThicknessDry" product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Finish Type"   fieldKey="finish"           product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Bases"         fieldKey="bases"            product={product} type="chips" editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Sizes"         fieldKey="sizes"            product={product} type="chips" editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
+                <SpecRow label="Product Code"  fieldKey="productCode"      product={product}              editMode={editMode} saveOverride={saveOverride} clearFieldOverride={clearFieldOverride} />
               </div>
             </div>
 
