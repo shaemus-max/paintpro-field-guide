@@ -28,10 +28,10 @@ export const BRANDS = [
 ]
 
 export const COMPETITOR_BRANDS = [
-  { id: 'sw',         label: 'Sherwin-Williams' },
-  { id: 'bm',         label: 'Benjamin Moore' },
-  { id: 'cloverdale', label: 'Cloverdale' },
-  { id: 'carboline',  label: 'Carboline' },
+  { id: 'sw',    label: 'Sherwin-Williams' },
+  { id: 'bm',    label: 'Benjamin Moore' },
+  { id: 'cl',    label: 'Cloverdale' },
+  { id: 'carbo', label: 'Carboline' },
 ]
 
 export const BRAND_META = {
@@ -45,4 +45,7 @@ export const BRAND_META = {
   behr:        { label: 'Behr',         short: 'BEHR',  bg: 'bg-brand-behr',      text: 'text-white' },
   cloverdale:  { label: 'Cloverdale',   short: 'CLO',   bg: 'bg-brand-cloverdale',text: 'text-white' },
   carboline:   { label: 'Carboline',    short: 'CBL',   bg: 'bg-brand-carboline', text: 'text-white' },
+  cl:          { label: 'Cloverdale',   short: 'CL',    bg: 'bg-brand-cloverdale',text: 'text-white' },
+  carbo:       { label: 'Carboline',    short: 'CARBO', bg: 'bg-brand-carboline', text: 'text-white' },
+  ppg:         { label: 'PPG',          short: 'PPG',   bg: 'bg-blue-700',        text: 'text-white' },
 }
