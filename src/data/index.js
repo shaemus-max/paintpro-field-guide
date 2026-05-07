@@ -5,7 +5,8 @@ import ppg       from './products-ppg.json'
 
 export const allProducts = [...interior, ...exterior, ...specialty, ...ppg]
 
-export { default as crossref } from './crossref.json'
+export { default as crossref }     from './crossref.json'
+export { default as competitors }  from './competitors.json'
 
 export const CATEGORIES = [
   { id: 'all',        label: 'All Products' },
@@ -24,6 +25,13 @@ export const BRANDS = [
   { id: 'all',    label: 'All Brands' },
   { id: 'dulux',  label: 'Dulux' },
   { id: 'ppg',    label: 'PPG' },
+]
+
+export const COMPETITOR_BRANDS = [
+  { id: 'sw',         label: 'Sherwin-Williams' },
+  { id: 'bm',         label: 'Benjamin Moore' },
+  { id: 'cloverdale', label: 'Cloverdale' },
+  { id: 'carboline',  label: 'Carboline' },
 ]
 
 export const BRAND_META = {
