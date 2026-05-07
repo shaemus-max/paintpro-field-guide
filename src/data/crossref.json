@@ -1,0 +1,115 @@
+{
+  "dulux-diamond-distinction-interior": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Emerald® Interior", "productCode": "K38W00053", "matchQuality": "exact", "note": "Both are top-tier consumer interior latex with premium washability and self-cleaning/dirt-resistance claims. Emerald is SW's equivalent flagship.", "url": "https://www.sherwin-williams.com/en-us/color/paint/emerald-interior-paint-K38W00053" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Aura® Interior", "productCode": "MN", "matchQuality": "exact", "note": "BM Aura is the direct flagship equivalent — both offer unmatched washability, hide, and colour accuracy at the premium tier.", "url": "https://www.benjaminmoore.com/en-ca/paint/aura-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Dynasty™ Interior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Dynasty is their top-tier interior paint with scuff and stain resistance claims. Slightly less proven in commercial specs.", "url": "https://www.behr.ca/products/interior/dynasty-interior" },
+    { "brand": "cloverdale", "brandDisplay": "Cloverdale Paint", "productName": "WonderTone Premium", "productCode": "N/A", "matchQuality": "close", "note": "Cloverdale's premium interior latex. Strong regional presence in BC and Alberta.", "url": "https://www.cloverdalepaint.com" }
+  ],
+  "dulux-anti-scuff-interior": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Duration Home® Interior", "productCode": "K38D00051", "matchQuality": "close", "note": "SW Duration Home offers good scrubbability and durability but lacks a dedicated anti-scuff marketing claim. Good alternative.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Scuff-X® Interior", "productCode": "MXA", "matchQuality": "exact", "note": "BM Scuff-X is a direct competitive product targeting scuff resistance — the closest true equivalent.", "url": "https://www.benjaminmoore.com/en-ca/paint/scuff-x-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Dynasty™ Interior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Dynasty includes scuff-resistance claims and covers this use case well.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-diamond-interior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Cashmere® Interior Acrylic", "productCode": "K33W00051", "matchQuality": "exact", "note": "SW Cashmere is the closest spec match — both are premium washable interior latex at the same quality tier.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Regal® Select Interior", "productCode": "548", "matchQuality": "exact", "note": "BM Regal Select and Dulux Diamond are direct equivalents — both are the second-tier premium lines below each brand's flagship.", "url": "https://www.benjaminmoore.com/en-ca/paint/regal-select-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Ultra® Interior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Ultra covers this tier with good washability and hide.", "url": "https://www.behr.ca" },
+    { "brand": "cloverdale", "brandDisplay": "Cloverdale Paint", "productName": "WonderTone", "productCode": "N/A", "matchQuality": "close", "note": "Cloverdale's mid-premium interior line.", "url": "https://www.cloverdalepaint.com" }
+  ],
+  "dulux-lifemaster-interior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Harmony® Interior Acrylic Latex", "productCode": "K35W00051", "matchQuality": "exact", "note": "SW Harmony is the closest equivalent — zero added VOC, marketed for sensitive environments. Both carry LEED IEQ credit eligibility.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Natura® Interior", "productCode": "N", "matchQuality": "exact", "note": "BM Natura is zero VOC and directly targets the same sensitive/LEED market. Direct cross.", "url": "https://www.benjaminmoore.com/en-ca/paint/natura-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Plus® Zero VOC Interior", "productCode": "N/A", "matchQuality": "close", "note": "Behr offers zero VOC options in their Premium Plus line — close match on VOC, slightly lower performance tier.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-xpert-interior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "ProMar® 200 Interior Latex", "productCode": "B20W00200", "matchQuality": "exact", "note": "SW's flagship contractor interior paint — both X-Pert and ProMar 200 are professional-grade with wide sheen/base availability.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "ben® Interior", "productCode": "623", "matchQuality": "close", "note": "BM ben is a good value professional interior latex. Slightly less coverage but good workability.", "url": "https://www.benjaminmoore.com/en-ca/paint/ben-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Plus® Interior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Premium Plus covers the same contractor-grade quality tier.", "url": "https://www.behr.ca" }
+  ],
+  "glidden-pro-interior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "ProMar® 400 Interior Latex", "productCode": "B30W00401", "matchQuality": "exact", "note": "SW ProMar 400 is the direct economy contractor equivalent — both are the value-end professional lines.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Ultra Spec® 500 Interior", "productCode": "N525", "matchQuality": "exact", "note": "BM Ultra Spec 500 targets the same economy contractor segment and is a direct cross.", "url": "https://www.benjaminmoore.com/en-ca/paint/ultra-spec-500-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Marquee® Interior (builder pricing)", "productCode": "N/A", "matchQuality": "category", "note": "No direct Behr economy contractor line — Marquee is available at builder pricing but is a higher-end product.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-kitchen-bath-interior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Emerald® Interior (Bath)", "productCode": "K38W00053", "matchQuality": "close", "note": "SW typically recommends Emerald or Duration Home for wet areas — no dedicated Kitchen & Bath SKU.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Aura® Bath & Spa", "productCode": "MN532", "matchQuality": "exact", "note": "BM Aura Bath & Spa is the direct equivalent — purpose-built for wet/humid environments with mould inhibitors.", "url": "https://www.benjaminmoore.com/en-ca/paint/aura-bath-spa-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Kitchen, Bath & Trim™ Interior", "productCode": "N/A", "matchQuality": "exact", "note": "Behr's dedicated Kitchen & Bath product is a direct category match.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-diamond-exterior-latex": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Emerald® Exterior Acrylic Latex", "productCode": "K37W00053", "matchQuality": "exact", "note": "SW Emerald Exterior is the direct premium exterior equivalent. Both target the premium residential repaint market.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Aura® Exterior", "productCode": "629", "matchQuality": "exact", "note": "BM Aura Exterior — direct match on tier, performance, and target application.", "url": "https://www.benjaminmoore.com/en-ca/paint/aura-exterior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Marquee® Exterior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Marquee Exterior is their top exterior line — close match on performance claims.", "url": "https://www.behr.ca" },
+    { "brand": "cloverdale", "brandDisplay": "Cloverdale Paint", "productName": "Weather-Tuff Exterior", "productCode": "N/A", "matchQuality": "close", "note": "Cloverdale's premium exterior line — good for Western Canada comparisons.", "url": "https://www.cloverdalepaint.com" }
+  ],
+  "dulux-weatherguard-exterior-acrylic": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Duration® Exterior Acrylic Latex", "productCode": "K24W00050", "matchQuality": "exact", "note": "SW Duration Exterior and WeatherGuard target the same professional exterior market — both offer extended repaint cycles and contractor pricing.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Regal® Select Exterior", "productCode": "N/A", "matchQuality": "close", "note": "BM Regal Select Exterior is a close match — both are the contractor-preferred mid-premium exterior lines.", "url": "https://www.benjaminmoore.com/en-ca/paint/regal-select-exterior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Plus® Exterior", "productCode": "N/A", "matchQuality": "close", "note": "Behr Premium Plus Exterior matches on quality tier and contractor pricing.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-gripper-primer-sealer": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Extreme Bond® Primer", "productCode": "K65W00001", "matchQuality": "exact", "note": "SW Extreme Bond and Dulux Gripper are direct equivalents — both bond to glossy surfaces without sanding.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Fresh Start® All-Purpose Interior/Exterior", "productCode": "023", "matchQuality": "close", "note": "BM Fresh Start is the closest equivalent — excellent adhesion primer, slightly less aggressive on very glossy surfaces.", "url": "https://www.benjaminmoore.com/en-ca/paint/fresh-start-all-purpose-primer" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Bonding Primer Interior/Exterior", "productCode": "N/A", "matchQuality": "close", "note": "Behr's bonding primer covers the same adhesion use case.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-xpert-high-build-primer-sealer": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "PrepRite® High Build Interior Primer", "productCode": "N/A", "matchQuality": "exact", "note": "SW PrepRite High Build is the direct equivalent for filling rough drywall before topcoats.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Fresh Start® High-Hiding Primer", "productCode": "024", "matchQuality": "close", "note": "BM Fresh Start High-Hiding is a close match — good filling and hide.", "url": "https://www.benjaminmoore.com/en-ca/paint/fresh-start-high-hiding-primer" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "PVA Drywall Primer", "productCode": "N/A", "matchQuality": "category", "note": "Behr PVA is for new drywall only — category match but lower build than X-Pert High Build.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-cwf-uv5-penetrating-wood-finish": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams (Flood)", "productName": "Flood® CWF-UV5®", "productCode": "FLD521", "matchQuality": "exact", "note": "This IS the same product — Flood CWF-UV5 is made by PPG/Dulux and is sold under the Flood brand by SW. Identical formulation.", "url": "https://www.floodpro.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Woodlux® Exterior Wood Finish", "productCode": "N/A", "matchQuality": "close", "note": "BM Woodlux is a penetrating oil finish for similar applications — close match on performance and use cases.", "url": "https://www.benjaminmoore.com" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Transparent Waterproofing Wood Finish", "productCode": "N/A", "matchQuality": "close", "note": "Behr's penetrating transparent wood finish — close performance match.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-woodpride-semi-trans": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "SuperDeck® Semi-Transparent Stain", "productCode": "DK3500", "matchQuality": "exact", "note": "SW SuperDeck Semi-Trans is a direct competitive match for residential semi-transparent deck and siding stains.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Arborcoat® Semi-Transparent", "productCode": "N/A", "matchQuality": "exact", "note": "BM Arborcoat Semi-Transparent is the direct equivalent — both are acrylic-oil semi-transparent exterior stains.", "url": "https://www.benjaminmoore.com/en-ca/paint/arborcoat-semi-transparent-stain" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Semi-Transparent Waterproofing Stain & Sealer", "productCode": "N/A", "matchQuality": "close", "note": "Behr's semi-transparent stain line — close category match.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-woodpride-solid-acrylic-stain": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "SuperDeck® Solid Color Stain", "productCode": "DK3600", "matchQuality": "exact", "note": "SW SuperDeck Solid and Woodpride Solid Acrylic are direct competitors in the residential solid exterior stain market.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Arborcoat® Solid Stain", "productCode": "N/A", "matchQuality": "exact", "note": "BM Arborcoat Solid is the direct equivalent — 100% acrylic solid exterior stain.", "url": "https://www.benjaminmoore.com/en-ca/paint/arborcoat-solid-stain" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Solid Color Waterproofing Stain & Sealer", "productCode": "N/A", "matchQuality": "close", "note": "Behr's solid stain line — good match for residential applications.", "url": "https://www.behr.ca" }
+  ],
+  "dulux-metalclad-rust-preventative-exterior": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "DTM® Acrylic Coating", "productCode": "B66W00811", "matchQuality": "exact", "note": "SW DTM Acrylic is the direct equivalent — both are water-based rust-preventative DTM coatings for exterior ferrous metal.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "carboline", "brandDisplay": "Carboline", "productName": "Carbomastic® 15 DTM", "productCode": "N/A", "matchQuality": "close", "note": "Carboline Carbomastic 15 is solvent-based with higher performance — use when enhanced corrosion resistance is specified.", "url": "https://www.carboline.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "IronClad® Alkyd Low Lustre Metal & Wood Enamel", "productCode": "N344", "matchQuality": "close", "note": "BM IronClad covers metal protection — close on category but IronClad is alkyd vs. Metalclad's acrylic DTM version.", "url": "https://www.benjaminmoore.com" }
+  ],
+  "dulux-metalclad-interior-exterior-alkyd": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Industrial Enamel B54 Oil Base", "productCode": "N/A", "matchQuality": "close", "note": "SW industrial alkyd enamel — equivalent on performance tier and substrate.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "carboline", "brandDisplay": "Carboline", "productName": "Carbomastic® 15", "productCode": "N/A", "matchQuality": "close", "note": "Carboline Carbomastic 15 is a higher-performance solvent-borne epoxy-modified product for more demanding corrosion environments.", "url": "https://www.carboline.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "IronClad® Alkyd Rust-Inhibitive Paint", "productCode": "N345", "matchQuality": "exact", "note": "BM IronClad Alkyd is the direct competitor — both are traditional oil-alkyd rust-preventative enamels.", "url": "https://www.benjaminmoore.com" }
+  ],
+  "dulux-wb-polyurethane-acrylic-floor-enamel": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Heavy Duty Acrylic Floor Paint", "productCode": "B70W00100", "matchQuality": "exact", "note": "SW Heavy Duty Floor is the direct competitor — both are water-based floor coatings for residential and commercial concrete.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Floor & Patio Latex Enamel", "productCode": "122", "matchQuality": "exact", "note": "BM Floor & Patio is the category equivalent for residential and light commercial floor applications.", "url": "https://www.benjaminmoore.com/en-ca/paint/floor-patio-latex-enamel" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Premium Solid Colour Concrete & Masonry Coating", "productCode": "N/A", "matchQuality": "close", "note": "Behr's concrete coating line — close category match for garage and residential floor use.", "url": "https://www.behr.ca" }
+  ],
+  "break-through-low-voc-door-trim-cabinet": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Emerald® Urethane Trim Enamel", "productCode": "K38W00750", "matchQuality": "exact", "note": "SW Emerald Urethane Trim Enamel is the direct equivalent — both are waterborne alkyd enamels for doors, trim, and cabinets at the premium tier.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Advance® Interior Paint", "productCode": "N/A", "matchQuality": "exact", "note": "BM Advance is the market-leading waterborne alkyd for cabinetry — excellent comparison product with proven kitchen cabinet track record.", "url": "https://www.benjaminmoore.com/en-ca/paint/advance-interior-paint" },
+    { "brand": "behr", "brandDisplay": "Behr", "productName": "Urethane Alkyd Satin Enamel", "productCode": "N/A", "matchQuality": "close", "note": "Behr's urethane alkyd enamel is a close match — available at big box stores at a different price point.", "url": "https://www.behr.ca" }
+  ],
+  "perma-crete-high-build-acrylic-topcoat": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Loxon® XP Masonry Coating", "productCode": "N/A", "matchQuality": "close", "note": "SW Loxon XP is a high-build masonry topcoat with similar waterproofing claims — close match on performance and use.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "MoorGard® Low Lustre Exterior", "productCode": "103", "matchQuality": "category", "note": "BM MoorGard covers masonry exterior — category match but lower build than Perma-Crete High Build.", "url": "https://www.benjaminmoore.com" }
+  ],
+  "perma-crete-pitt-flex-elastomeric-topcoat-smooth": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "Loxon® Elastomeric Coating", "productCode": "N/A", "matchQuality": "exact", "note": "SW Loxon Elastomeric is the direct competitor — both are elastomeric masonry topcoats with crack-bridging claims.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Elastomerix® Elastomeric Coating", "productCode": "N/A", "matchQuality": "exact", "note": "BM Elastomerix covers the same high-movement masonry waterproofing segment.", "url": "https://www.benjaminmoore.com" }
+  ],
+  "dulux-spray-master-100-acrylic-dryfall": [
+    { "brand": "sw", "brandDisplay": "Sherwin-Williams", "productName": "DryFog™ Latex Interior Coating", "productCode": "N/A", "matchQuality": "exact", "note": "SW DryFog is the direct competitor for commercial dryfall applications — same overspray technology.", "url": "https://www.sherwin-williams.com" },
+    { "brand": "bm", "brandDisplay": "Benjamin Moore", "productName": "Speedhide® Interior Latex Dryfall", "productCode": "N/A", "matchQuality": "exact", "note": "BM Speedhide Dryfall — direct category competitor for commercial ceiling spray applications.", "url": "https://www.benjaminmoore.com" }
+  ],
+  "top-gun-200xi-siliconized-acrylic-sealant": [
+    { "brand": "bm", "brandDisplay": "General/GE", "productName": "GE Supreme™ Paintable Silicone", "productCode": "N/A", "matchQuality": "close", "note": "GE Supreme is a consumer siliconized sealant — close match for residential caulking applications.", "url": "https://www.momentive.com" },
+    { "brand": "carboline", "brandDisplay": "Tremco", "productName": "Tremflex® 834", "productCode": "N/A", "matchQuality": "close", "note": "Tremco Tremflex 834 is a siliconized acrylic sealant commonly specified in commercial construction.", "url": "https://www.tremcosealants.com" }
+  ],
+  "top-gun-350-silicone-sealant": [
+    { "brand": "bm", "brandDisplay": "GE Silicones", "productName": "GE Supreme™ Silicone 2", "productCode": "N/A", "matchQuality": "close", "note": "GE Supreme Silicone 2 — similar all-purpose 100% silicone for glazing and non-porous substrates.", "url": "https://www.momentive.com" },
+    { "brand": "carboline", "brandDisplay": "Dow Corning / Sika", "productName": "Sikasil®-C Structural Glazing", "productCode": "N/A", "matchQuality": "close", "note": "Sikasil is widely specified for commercial glazing — appropriate comparison for structural silicone applications.", "url": "https://www.sika.com" }
+  ]
+}
