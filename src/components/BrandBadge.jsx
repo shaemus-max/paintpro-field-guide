@@ -11,6 +11,9 @@ const COLOURS = {
   behr:          'bg-brand-behr text-white',
   cloverdale:    'bg-brand-cloverdale text-white',
   carboline:     'bg-brand-carboline text-white',
+  cl:            'bg-brand-cloverdale text-white',
+  carbo:         'bg-brand-carboline text-white',
+  ppg:           'bg-blue-700 text-white',
 }
 
 export default function BrandBadge({ brand, size = 'sm', className = '' }) {

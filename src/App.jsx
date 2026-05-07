@@ -7,7 +7,8 @@ import ProductDetailPage from './pages/ProductDetailPage'
 import ComparePage      from './pages/ComparePage'
 import FavouritesPage   from './pages/FavouritesPage'
 import FieldNotesPage   from './pages/FieldNotesPage'
-import SettingsPage     from './pages/SettingsPage'
+import SettingsPage          from './pages/SettingsPage'
+import CompetitorDetailPage from './pages/CompetitorDetailPage'
 import { useFavourites }  from './hooks/useFavourites'
 import { useFieldNotes }  from './hooks/useFieldNotes'
 import { useCompare }     from './hooks/useCompare'
@@ -114,6 +115,10 @@ export default function App() {
             element={
               <FieldNotesPage allNotes={allNotes} deleteNote={deleteNote} />
             }
+          />
+          <Route
+            path="/competitor/:id"
+            element={<CompetitorDetailPage />}
           />
           <Route
             path="/settings"
