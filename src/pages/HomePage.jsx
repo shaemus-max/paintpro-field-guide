@@ -37,7 +37,6 @@ const COMP_FUSE_OPTS = {
   includeScore: true,
 }
 
-// Map our category IDs → competitor product category strings
 const CAT_ID_TO_COMP_CATS = {
   interior:  ['Interior Paint', 'Trim & Cabinet', 'Kitchen & Bath', 'Ceiling Paint', 'Architectural Interior'],
   exterior:  ['Exterior Paint', 'Architectural Exterior'],
@@ -67,17 +66,16 @@ function Highlight({ text, query }) {
   )
 }
 
-function SearchResultItem({ product, isCompetitor, query }) {
+function SearchResultItem({ product, isCompetitor, isCustom, query }) {
   const name     = isCompetitor ? product.name : (product.shortName || product.name)
   const code     = isCompetitor ? product.code : product.productCode
   const brandKey = isCompetitor ? product.brandKey : product.brand
-  const href     = isCompetitor ? `/competitor/${product.id}` : `/product/${product.id}`
+  const href     = isCustom ? `/custom/${product.id}` : isCompetitor ? `/competitor/${product.id}` : `/product/${product.id}`
 
   return (
     <Link
       to={href}
-      className="flex flex-col gap-1.5 p-3 rounded-xl border border-gray-100 bg-white
-                 hover:border-brand-dulux hover:shadow-sm transition-all"
+      className="flex flex-col gap-1.5 p-3 rounded-xl border border-gray-100 bg-white hover:border-brand-dulux hover:shadow-sm transition-all"
     >
       <div className="flex items-center gap-2 flex-wrap">
         <BrandBadge brand={brandKey} size="sm" />
@@ -101,15 +99,26 @@ export default function HomePage({
   searchQuery, activeCategory, onCategory,
   activeBrand, onBrand, favs, onToggleFav,
   compareList, onAddCompare, inCompare,
+  customProducts = [],
+  hiddenIds = [],
+  onAddProduct,
 }) {
-  const fuse = useMemo(() => new Fuse(products, OUR_FUSE_OPTS), [products])
+  const visibleProducts = useMemo(() =>
+    products.filter(p => !hiddenIds.includes(p.id)),
+    [products, hiddenIds]
+  )
 
+  const allOurProducts = useMemo(() =>
+    [...visibleProducts, ...customProducts],
+    [visibleProducts, customProducts]
+  )
+
+  const fuse = useMemo(() => new Fuse(allOurProducts, OUR_FUSE_OPTS), [allOurProducts])
   const competitorFuse = useMemo(() => new Fuse(competitors, COMP_FUSE_OPTS), [])
 
   const isSearchMode = (searchQuery?.trim().length ?? 0) >= 2
   const isCompetitor = !isSearchMode && COMPETITOR_IDS.has(activeBrand)
 
-  // ── Unified search across all products ──────────────────────────────────
   const searchResults = useMemo(() => {
     if (!isSearchMode) return { our: [], comp: [] }
     const q = searchQuery.trim()
@@ -119,7 +128,6 @@ export default function HomePage({
     }
   }, [isSearchMode, searchQuery, fuse, competitorFuse])
 
-  // ── Browse-mode filter (category + brand) ────────────────────────────────
   const filtered = useMemo(() => {
     if (isSearchMode) return []
 
@@ -138,16 +146,15 @@ export default function HomePage({
 
     let list = searchQuery?.trim()
       ? fuse.search(searchQuery).map(r => r.item)
-      : products
+      : allOurProducts
 
     if (activeCategory !== 'all') list = list.filter(p => p.category === activeCategory)
-    if (activeBrand === 'dulux')   list = list.filter(p => p.parentBrand === 'dulux')
-    if (activeBrand === 'ppg')     list = list.filter(p => p.parentBrand === 'ppg')
+    if (activeBrand === 'dulux')   list = list.filter(p => p.parentBrand === 'dulux' || p.brandKey === 'dulux')
+    if (activeBrand === 'ppg')     list = list.filter(p => p.parentBrand === 'ppg' || p.brandKey === 'ppg')
 
     return list
-  }, [fuse, products, searchQuery, activeCategory, activeBrand, isCompetitor, isSearchMode])
+  }, [fuse, allOurProducts, searchQuery, activeCategory, activeBrand, isCompetitor, isSearchMode])
 
-  // ── Counts for filter pills ──────────────────────────────────────────────
   const counts = useMemo(() => {
     const competitorCounts = {}
     COMPETITOR_BRANDS.forEach(({ id }) => {
@@ -169,15 +176,15 @@ export default function HomePage({
 
     const base = searchQuery?.trim()
       ? fuse.search(searchQuery).map(r => r.item)
-      : products
+      : allOurProducts
     const brandFiltered = activeBrand === 'all' ? base
-      : base.filter(p => p.parentBrand === activeBrand)
+      : base.filter(p => p.parentBrand === activeBrand || p.brandKey === activeBrand)
     const c = { all: brandFiltered.length, ...competitorCounts }
     brandFiltered.forEach(p => { c[p.category] = (c[p.category] || 0) + 1 })
     return c
-  }, [fuse, products, searchQuery, activeBrand, isCompetitor, isSearchMode])
+  }, [fuse, allOurProducts, searchQuery, activeBrand, isCompetitor, isSearchMode])
 
-  // ── SEARCH MODE RENDER ───────────────────────────────────────────────────
+  // ── SEARCH MODE ──────────────────────────────────────────────────────────
   if (isSearchMode) {
     const q     = searchQuery.trim()
     const total = searchResults.our.length + searchResults.comp.length
@@ -188,10 +195,8 @@ export default function HomePage({
           <p className="text-sm text-gray-500 mb-5">
             {total} result{total !== 1 ? 's' : ''} for{' '}
             <span className="font-semibold text-gray-700">"{q}"</span>
-            <span className="ml-2 text-xs text-gray-400">— fuzzy search, sorted by relevance</span>
           </p>
 
-          {/* Your Products */}
           {searchResults.our.length > 0 && (
             <section className="mb-8">
               <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 flex items-center gap-2">
@@ -200,13 +205,12 @@ export default function HomePage({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {searchResults.our.map(p => (
-                  <SearchResultItem key={p.id} product={p} isCompetitor={false} query={q} />
+                  <SearchResultItem key={p.id} product={p} isCompetitor={false} isCustom={p.isCustom} query={q} />
                 ))}
               </div>
             </section>
           )}
 
-          {/* Competitor Products */}
           {searchResults.comp.length > 0 && (
             <section className="mb-8">
               <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 flex items-center gap-2">
@@ -215,7 +219,7 @@ export default function HomePage({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {searchResults.comp.map(p => (
-                  <SearchResultItem key={p.id} product={p} isCompetitor={true} query={q} />
+                  <SearchResultItem key={p.id} product={p} isCompetitor={true} isCustom={false} query={q} />
                 ))}
               </div>
             </section>
@@ -233,7 +237,7 @@ export default function HomePage({
     )
   }
 
-  // ── BROWSE MODE RENDER ───────────────────────────────────────────────────
+  // ── BROWSE MODE ──────────────────────────────────────────────────────────
   return (
     <div className="page-enter mb-bottom-nav">
       <div className="page-container py-4 sm:py-6">
@@ -248,10 +252,14 @@ export default function HomePage({
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-gray-500">
             {filtered.length} product{filtered.length !== 1 ? 's' : ''}
-            {isCompetitor && (
-              <span className="ml-1 text-gray-400">— competitor reference</span>
-            )}
+            {isCompetitor && <span className="ml-1 text-gray-400">— competitor reference</span>}
           </p>
+          <button
+            onClick={onAddProduct}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-dulux text-white rounded-lg text-xs font-semibold hover:bg-red-800 transition-colors"
+          >
+            + Add Product
+          </button>
         </div>
 
         {filtered.length === 0 ? (
@@ -263,7 +271,14 @@ export default function HomePage({
         ) : isCompetitor ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
             {filtered.map(p => (
-              <CompetitorCard key={p.id} product={p} />
+              <CompetitorCard
+                key={p.id}
+                product={p}
+                favs={favs}
+                onToggleFav={onToggleFav}
+                onAddCompare={onAddCompare}
+                inCompare={inCompare(p.id)}
+              />
             ))}
           </div>
         ) : (

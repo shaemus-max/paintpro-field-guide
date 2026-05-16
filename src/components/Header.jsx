@@ -8,6 +8,7 @@ export default function Header({
   showToggle = false,
   editMode = false,
   onToggleEditMode,
+  onAddProduct,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -28,11 +29,11 @@ export default function Header({
     <header className={`sticky top-0 z-50 text-white shadow-lg transition-colors ${editMode ? 'bg-amber-900' : 'bg-navy'}`}>
       <div className="page-container">
         <div className="flex items-center gap-4 h-14">
-          {/* Logo — triple-click activates edit mode reveal */}
+
           <Link
             to="/"
             className="flex items-center gap-2 shrink-0 select-none"
-            onClick={(e) => { onSearch?.(''); onLogoClick?.() }}
+            onClick={() => { onSearch?.(''); onLogoClick?.() }}
           >
             <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${editMode ? 'bg-amber-500' : 'bg-brand-dulux'}`}>
               <span className="text-white font-serif font-bold text-lg leading-none">P</span>
@@ -43,7 +44,6 @@ export default function Header({
             </div>
           </Link>
 
-          {/* Search bar */}
           <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
@@ -61,13 +61,20 @@ export default function Header({
                   onClick={() => { setLocalQ(''); onSearch?.(''); inputRef.current?.focus() }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
                 >
-                  ✕
+                  x
                 </button>
               )}
             </div>
           </form>
 
-          {/* Edit mode toggle — only shown after triple-click */}
+          <button
+            onClick={onAddProduct}
+            className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-dulux hover:bg-red-800 text-white transition-colors"
+            title="Add new product"
+          >
+            + Add
+          </button>
+
           {showToggle && (
             <button
               onClick={onToggleEditMode}
@@ -78,18 +85,17 @@ export default function Header({
                   : 'bg-white/10 text-gray-300 hover:bg-white/20'
               }`}
             >
-              {editMode ? '🔓 Editing' : '🔒 Locked'}
+              {editMode ? 'Editing' : 'Locked'}
             </button>
           )}
 
-          {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-1">
             {[
               { to: '/',           label: 'Search' },
               { to: '/compare',    label: 'Compare' },
               { to: '/favourites', label: 'Favourites' },
               { to: '/notes',      label: 'Field Notes' },
-              { to: '/settings',   label: '⚙' },
+              { to: '/settings',   label: 'Settings' },
             ].map(({ to, label }) => (
               <Link
                 key={to}
@@ -102,6 +108,7 @@ export default function Header({
               </Link>
             ))}
           </nav>
+
         </div>
       </div>
     </header>

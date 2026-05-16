@@ -16,7 +16,12 @@ function OverrideDot() {
 }
 
 export function PricingDisplay({ product, compact = false }) {
-  const prices = PRICE_FIELDS.filter(f => product[f.key])
+  const effectiveProduct = {
+    ...product,
+    priceGallon:  product.priceGallon  || '75.00',
+    price5Gallon: product.price5Gallon || '320.00',
+  }
+  const prices = PRICE_FIELDS.filter(f => effectiveProduct[f.key])
   if (!prices.length) return null
 
   if (compact) {
@@ -24,7 +29,7 @@ export function PricingDisplay({ product, compact = false }) {
       <div className="flex gap-2 flex-wrap mt-1">
         {prices.map(f => (
           <span key={f.key} className="text-xs font-semibold text-gray-700">
-            {f.abbr}: <span className="text-green-700">${product[f.key]}</span>
+            {f.abbr}: <span className="text-green-700">${effectiveProduct[f.key]}</span>
           </span>
         ))}
       </div>
@@ -37,7 +42,7 @@ export function PricingDisplay({ product, compact = false }) {
         {prices.map(f => (
           <div key={f.key} className="bg-green-50 rounded-xl p-3 text-center min-w-[90px]">
             <div className="text-xs text-gray-500 font-medium mb-0.5">{f.label}</div>
-            <div className="text-lg font-bold text-gray-900">${product[f.key]}</div>
+            <div className="text-lg font-bold text-gray-900">${effectiveProduct[f.key]}</div>
             <div className="text-xs text-gray-400">CAD</div>
           </div>
         ))}
@@ -55,14 +60,20 @@ export default function PricingSection({ product, editMode, saveOverride, clearF
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState({})
 
-  const hasPrices = PRICE_FIELDS.some(f => product[f.key])
+  const effectiveProduct = {
+    ...product,
+    priceGallon:  product.priceGallon  || '75.00',
+    price5Gallon: product.price5Gallon || '320.00',
+  }
+
+  const hasPrices = PRICE_FIELDS.some(f => effectiveProduct[f.key])
   const anyOverridden = PRICE_FIELDS.some(f => product._overriddenFields?.includes(f.key))
 
   const startEdit = () => {
     setDraft({
       priceQuart:   product.priceQuart   || '',
-      priceGallon:  product.priceGallon  || '',
-      price5Gallon: product.price5Gallon || '',
+      priceGallon:  product.priceGallon  || '75.00',
+      price5Gallon: product.price5Gallon || '320.00',
     })
     setEditing(true)
   }
@@ -83,8 +94,6 @@ export default function PricingSection({ product, editMode, saveOverride, clearF
     clearFieldOverride?.(product.id, '_pricingUpdated')
     setEditing(false)
   }
-
-  if (!editMode && !hasPrices) return null
 
   if (editing) {
     return (
@@ -110,10 +119,10 @@ export default function PricingSection({ product, editMode, saveOverride, clearF
           ))}
         </div>
         <div className="flex gap-2 flex-wrap">
-          <button onClick={handleSave} className="px-3 py-1.5 bg-brand-dulux text-white rounded-lg text-xs font-semibold hover:bg-red-800 transition-colors">✓ Save</button>
-          <button onClick={() => setEditing(false)} className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold hover:bg-gray-200 transition-colors">✕ Cancel</button>
+          <button onClick={handleSave} className="px-3 py-1.5 bg-brand-dulux text-white rounded-lg text-xs font-semibold hover:bg-red-800 transition-colors">Save</button>
+          <button onClick={() => setEditing(false)} className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold hover:bg-gray-200 transition-colors">Cancel</button>
           {anyOverridden && clearFieldOverride && (
-            <button onClick={handleResetAll} className="px-3 py-1.5 bg-orange-100 text-orange-700 rounded-lg text-xs font-semibold hover:bg-orange-200 transition-colors">↺ Reset to Default</button>
+            <button onClick={handleResetAll} className="px-3 py-1.5 bg-orange-100 text-orange-700 rounded-lg text-xs font-semibold hover:bg-orange-200 transition-colors">Reset to Default</button>
           )}
         </div>
       </div>
@@ -132,14 +141,14 @@ export default function PricingSection({ product, editMode, saveOverride, clearF
             onClick={startEdit}
             className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
           >
-            ✏ Edit Prices
+            Edit Prices
           </button>
         )}
       </div>
       {hasPrices ? (
-        <PricingDisplay product={product} />
+        <PricingDisplay product={effectiveProduct} />
       ) : (
-        <p className="text-sm text-gray-400 italic">No prices set — click Edit Prices to add</p>
+        <p className="text-sm text-gray-400 italic">No prices set</p>
       )}
     </div>
   )

@@ -7,18 +7,21 @@ import ProductDetailPage from './pages/ProductDetailPage'
 import ComparePage      from './pages/ComparePage'
 import FavouritesPage   from './pages/FavouritesPage'
 import FieldNotesPage   from './pages/FieldNotesPage'
-import SettingsPage          from './pages/SettingsPage'
+import SettingsPage     from './pages/SettingsPage'
 import CompetitorDetailPage from './pages/CompetitorDetailPage'
+import AddProductModal  from './components/AddProductModal'
 import { useFavourites }  from './hooks/useFavourites'
 import { useFieldNotes }  from './hooks/useFieldNotes'
 import { useCompare }     from './hooks/useCompare'
 import { useProductData } from './hooks/useProductData'
 import { useEditMode }    from './hooks/useEditMode'
+import { useCustomProducts } from './hooks/useCustomProducts'
 
 export default function App() {
   const [searchQuery,    setSearchQuery]    = useState('')
   const [activeCategory, setActiveCategory] = useState('all')
   const [activeBrand,    setActiveBrand]    = useState('all')
+  const [showAddModal,   setShowAddModal]   = useState(false)
 
   const { favs, toggle: toggleFav } = useFavourites()
   const { addNote, deleteNote, getNotes, allNotes } = useFieldNotes()
@@ -37,11 +40,32 @@ export default function App() {
     totalOverrideCount,
   } = useProductData()
 
+  const {
+    customProducts,
+    hiddenIds,
+    addProduct,
+    deleteCustomProduct,
+    hideBuiltInProduct,
+    restoreProduct,
+  } = useCustomProducts()
+
   const { editMode, showToggle, handleLogoClick, toggleEditMode } = useEditMode()
 
   const handleCompareToggle = (id, add) => {
     if (add) addToCompare(id)
     else removeFromCompare(id)
+  }
+
+  const handleAddProduct = (fields) => {
+    addProduct(fields)
+  }
+
+  const handleDeleteProduct = (product) => {
+    if (product.isCustom) {
+      deleteCustomProduct(product.id)
+    } else {
+      hideBuiltInProduct(product.id)
+    }
   }
 
   const sharedProps = {
@@ -63,7 +87,15 @@ export default function App() {
         showToggle={showToggle}
         editMode={editMode}
         onToggleEditMode={toggleEditMode}
+        onAddProduct={() => setShowAddModal(true)}
       />
+
+      {showAddModal && (
+        <AddProductModal
+          onSave={handleAddProduct}
+          onClose={() => setShowAddModal(false)}
+        />
+      )}
 
       <main className="flex-1">
         <Routes>
@@ -77,6 +109,9 @@ export default function App() {
                 onCategory={setActiveCategory}
                 activeBrand={activeBrand}
                 onBrand={setActiveBrand}
+                customProducts={customProducts}
+                hiddenIds={hiddenIds}
+                onAddProduct={() => setShowAddModal(true)}
               />
             }
           />
@@ -92,6 +127,8 @@ export default function App() {
                 addNote={addNote}
                 getNotes={getNotes}
                 deleteNote={deleteNote}
+                onDeleteProduct={handleDeleteProduct}
+                customProducts={customProducts}
               />
             }
           />
@@ -118,7 +155,34 @@ export default function App() {
           />
           <Route
             path="/competitor/:id"
-            element={<CompetitorDetailPage />}
+            element={
+              <CompetitorDetailPage
+                {...sharedProps}
+                saveOverride={saveOverride}
+                clearFieldOverride={clearFieldOverride}
+                addNote={addNote}
+                getNotes={getNotes}
+                deleteNote={deleteNote}
+                onDeleteProduct={handleDeleteProduct}
+              />
+            }
+          />
+          <Route
+            path="/custom/:id"
+            element={
+              <ProductDetailPage
+                {...sharedProps}
+                getProduct={id => customProducts.find(p => p.id === id) || null}
+                saveOverride={saveOverride}
+                clearFieldOverride={clearFieldOverride}
+                isOverridden={isOverridden}
+                addNote={addNote}
+                getNotes={getNotes}
+                deleteNote={deleteNote}
+                onDeleteProduct={handleDeleteProduct}
+                customProducts={customProducts}
+              />
+            }
           />
           <Route
             path="/settings"

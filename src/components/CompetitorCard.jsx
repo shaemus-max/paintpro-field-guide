@@ -1,104 +1,120 @@
 import { Link } from 'react-router-dom'
 import BrandBadge from './BrandBadge'
 
-export default function CompetitorCard({ product, favs = [], onToggleFav, onAddCompare, inCompare }) {
-  const isFav = favs.includes(product.id)
-
-  function openTds(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    if (product.tdsUrl) window.open(product.tdsUrl, '_blank')
+function VOCChip({ voc }) {
+  const map = {
+    'Zero Added VOC': 'bg-green-100 text-green-800',
+    'Low VOC':        'bg-blue-100 text-blue-800',
+    'Regular':        'bg-gray-100 text-gray-600',
+    'Solvent-based':  'bg-orange-100 text-orange-800',
   }
+  const cls = map[voc] || 'bg-gray-100 text-gray-600'
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${cls}`}>
+      {voc}
+    </span>
+  )
+}
 
-  function toggleFav(e) {
-    e.preventDefault()
-    if (onToggleFav) onToggleFav(product.id)
-  }
+function openTds(e, url) {
+  e.preventDefault()
+  e.stopPropagation()
+  if (url) window.open(url, '_blank')
+}
 
-  function addToCompare(e) {
-    e.preventDefault()
-    if (onAddCompare) onAddCompare(product.id)
-  }
+export default function CompetitorCard({ product, onAddCompare, inCompare, isFav, onToggleFav }) {
 
   return (
-    <div className="card p-4 flex flex-col gap-2 h-full hover:border-brand-dulux hover:shadow-sm transition-all relative">
+    <div className="card card-hover relative flex flex-col h-full">
 
+      {/* Image placeholder */}
+      <Link to={'/competitor/' + product.id} className="block">
+        <div className="w-full h-36 rounded-t-xl bg-gray-50 flex flex-col items-center justify-center">
+          <span className="text-4xl opacity-20">🎨</span>
+          <span className="text-xs text-gray-400 mt-1 font-medium uppercase tracking-wide">
+            {product.brandKey ? product.brandKey.toUpperCase() : ''}
+          </span>
+        </div>
+      </Link>
+
+      {/* Brand badge top-right */}
+      <div className="absolute top-2 right-2">
+        <BrandBadge brand={product.brandKey} />
+      </div>
+
+      {/* Fav button */}
       <button
-        onClick={toggleFav}
-        className="absolute top-3 left-3 z-10 text-lg leading-none"
+        onClick={() => onToggleFav && onToggleFav(product.id)}
+        className="absolute top-2 left-2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur rounded-full shadow-sm hover:bg-white transition-colors"
+        aria-label={isFav ? 'Remove from favourites' : 'Add to favourites'}
       >
         {isFav ? '❤️' : '🤍'}
       </button>
 
-      <div className="flex justify-end">
-        <BrandBadge brand={product.brandKey} size="sm" />
-      </div>
+      <div className="p-4 flex flex-col flex-1">
 
-      <div className="w-full h-28 bg-gray-50 rounded-xl flex flex-col items-center justify-center mb-1">
-        <span className="text-4xl opacity-20">🎨</span>
-        <span className="text-xs text-gray-400 mt-1 font-medium uppercase tracking-wide">
-          {product.brandKey ? product.brandKey.toUpperCase() : ''}
-        </span>
-      </div>
-
-      <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-        {product.category}
-      </span>
-
-      <h3 className="font-semibold text-gray-900 text-sm leading-snug">{product.name}</h3>
-
-      {product.code && (
-        <p className="text-xs text-gray-400 font-mono">{product.code}</p>
-      )}
-
-      {product.description && (
-        <p className="text-xs text-gray-600 leading-relaxed line-clamp-3 flex-1">
-          {product.description}
-        </p>
-      )}
-
-      <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500 mt-auto">
-        {product.voc && (
-          <span>VOC: <span className="font-medium text-gray-700">{product.voc}</span></span>
-        )}
-        {product.coverage && (
-          <span>Cov: <span className="font-medium text-gray-700">{product.coverage}</span></span>
-        )}
-      </div>
-
-      {product.sheens && product.sheens.length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {product.sheens.slice(0, 4).map(s => (
-            <span key={s} className="spec-chip">{s}</span>
-          ))}
-          {product.sheens.length > 4 && (
-            <span className="spec-chip">+{product.sheens.length - 4}</span>
-          )}
+        {/* Category tag */}
+        <div className="mb-1">
+          <span className="text-xs font-semibold text-brand-dulux uppercase tracking-wide">
+            {product.category}
+          </span>
         </div>
-      )}
 
-      <div className="flex items-center gap-2 pt-2 border-t border-gray-100 mt-1">
-        <Link
-          to={'/competitor/' + product.id}
-          className="flex-1 text-center text-xs font-semibold text-white bg-navy px-3 py-2 rounded-lg hover:bg-navy/90 transition-colors"
-        >
-          View Details
+        {/* Name */}
+        <Link to={'/competitor/' + product.id}>
+          <h3 className="font-serif text-base leading-snug text-gray-900 mb-2 hover:text-brand-dulux transition-colors line-clamp-2">
+            {product.name}
+          </h3>
         </Link>
-        {product.tdsUrl && (
-          <button
-            onClick={openTds}
-            className="text-xs font-semibold text-brand-dulux px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-          >
-            TDS
-          </button>
+
+        {/* Sheens */}
+        {product.sheens && product.sheens.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-2">
+            {product.sheens.slice(0, 4).map(s => (
+              <span key={s} className="spec-chip">{s}</span>
+            ))}
+            {product.sheens.length > 4 && (
+              <span className="spec-chip">+{product.sheens.length - 4}</span>
+            )}
+          </div>
         )}
-        <button
-          onClick={addToCompare}
-          disabled={inCompare && inCompare(product.id)}
-          className="text-xs font-semibold text-gray-500 px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors disabled:opacity-40"
-        >
-          Compare
-        </button>
+
+        {/* Quick specs row */}
+        <div className="flex items-center gap-3 text-xs text-gray-500 mb-2 mt-auto flex-wrap">
+          {product.coverage && (
+            <span>📐 {product.coverage.split('(')[0].trim()}</span>
+          )}
+          {product.voc && <VOCChip voc={product.voc} />}
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-2 pt-2 border-t border-gray-100 mt-auto">
+          <Link
+            to={'/competitor/' + product.id}
+            className="flex-1 text-center py-2 text-xs font-semibold text-brand-dulux hover:bg-red-50 rounded-lg transition-colors"
+          >
+            View Details
+          </Link>
+          {product.tdsUrl && (
+            <button
+              onClick={e => openTds(e, product.tdsUrl)}
+              className="px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              TDS
+            </button>
+          )}
+          <button
+            onClick={() => onAddCompare && onAddCompare(product.id)}
+            disabled={inCompare}
+            className={`px-3 py-2 text-xs font-semibold rounded-lg transition-colors ${
+              inCompare
+                ? 'bg-navy text-white cursor-default'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            {inCompare ? '✓ Compare' : '⊕ Compare'}
+          </button>
+        </div>
       </div>
     </div>
   )
