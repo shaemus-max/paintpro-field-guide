@@ -20,23 +20,21 @@ function VOCChip({ voc }) {
 
 export default function ProductCard({ product, onAddCompare, inCompare, isFav, onToggleFav }) {
   const hasPricing = product.priceQuart || product.priceGallon || product.price5Gallon
+  const tdsUrl = product.tdsUrl || product.duluxUrl
+  const brandKey = product.brandKey || product.brand
+  const displayName = product.shortName || product.name
 
   return (
     <div className="card card-hover relative flex flex-col h-full">
-      {/* Image */}
+
       <Link to={`/product/${product.id}`} className="block">
-        <ProductImage
-          product={product}
-          className="w-full h-36 rounded-t-xl"
-        />
+        <ProductImage product={product} className="w-full h-36 rounded-t-xl" />
       </Link>
 
-      {/* Brand badge top-right */}
       <div className="absolute top-2 right-2">
-        <BrandBadge brand={product.brand} />
+        <BrandBadge brand={brandKey} />
       </div>
 
-      {/* Fav button */}
       <button
         onClick={() => onToggleFav?.(product.id)}
         className="absolute top-2 left-2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur rounded-full shadow-sm hover:bg-white transition-colors"
@@ -46,21 +44,19 @@ export default function ProductCard({ product, onAddCompare, inCompare, isFav, o
       </button>
 
       <div className="p-4 flex flex-col flex-1">
-        {/* Category tag */}
+
         <div className="mb-1">
           <span className="text-xs font-semibold text-brand-dulux uppercase tracking-wide">
             {product.subcategory || product.category}
           </span>
         </div>
 
-        {/* Name */}
         <Link to={`/product/${product.id}`}>
           <h3 className="font-serif text-base leading-snug text-gray-900 mb-2 hover:text-brand-dulux transition-colors line-clamp-2">
-            {product.shortName}
+            {displayName}
           </h3>
         </Link>
 
-        {/* Sheens */}
         {product.sheens?.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-2">
             {product.sheens.slice(0, 4).map(s => (
@@ -72,7 +68,6 @@ export default function ProductCard({ product, onAddCompare, inCompare, isFav, o
           </div>
         )}
 
-        {/* Quick specs row */}
         <div className="flex items-center gap-3 text-xs text-gray-500 mb-2 mt-auto flex-wrap">
           {product.coverage && (
             <span title="Coverage">📐 {product.coverage.split('(')[0].trim()}</span>
@@ -80,14 +75,12 @@ export default function ProductCard({ product, onAddCompare, inCompare, isFav, o
           {product.voc && <VOCChip voc={product.voc} />}
         </div>
 
-        {/* Pricing — shown when prices are set */}
         {hasPricing && (
           <div className="mb-2 pt-1.5 border-t border-gray-100">
             <PricingDisplay product={product} compact />
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex gap-2 pt-2 border-t border-gray-100 mt-auto">
           <Link
             to={`/product/${product.id}`}
@@ -95,15 +88,17 @@ export default function ProductCard({ product, onAddCompare, inCompare, isFav, o
           >
             View Details
           </Link>
-          <a
-            href={product.duluxUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            title="Open TDS on dulux.ca"
-          >
-            TDS ↗
-          </a>
+          {tdsUrl && (
+            
+              <a href={tdsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              title="Open TDS"
+            >
+              TDS ↗
+            </a>
+          )}
           <button
             onClick={() => onAddCompare?.(product.id)}
             disabled={inCompare}
@@ -117,6 +112,7 @@ export default function ProductCard({ product, onAddCompare, inCompare, isFav, o
             {inCompare ? '✓ Compare' : '⊕ Compare'}
           </button>
         </div>
+
       </div>
     </div>
   )

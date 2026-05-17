@@ -11,8 +11,6 @@ function loadOverrides() {
 export function useProductData() {
   const [overrides, setOverrides] = useState(loadOverrides)
 
-  // Merge base data with stored overrides.
-  // Keys starting with _ are metadata (not shown as overridden fields).
   const products = useMemo(() =>
     allProducts.map(base => {
       const ov = overrides[base.id]
@@ -44,7 +42,6 @@ export function useProductData() {
     })
   }, [])
 
-  // Remove a single field from a product's overrides.
   const clearFieldOverride = useCallback((productId, field) => {
     setOverrides(prev => {
       const current = prev[productId]

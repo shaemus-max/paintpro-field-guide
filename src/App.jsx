@@ -8,13 +8,12 @@ import ComparePage      from './pages/ComparePage'
 import FavouritesPage   from './pages/FavouritesPage'
 import FieldNotesPage   from './pages/FieldNotesPage'
 import SettingsPage     from './pages/SettingsPage'
-import CompetitorDetailPage from './pages/CompetitorDetailPage'
 import AddProductModal  from './components/AddProductModal'
-import { useFavourites }  from './hooks/useFavourites'
-import { useFieldNotes }  from './hooks/useFieldNotes'
-import { useCompare }     from './hooks/useCompare'
-import { useProductData } from './hooks/useProductData'
-import { useEditMode }    from './hooks/useEditMode'
+import { useFavourites }     from './hooks/useFavourites'
+import { useFieldNotes }     from './hooks/useFieldNotes'
+import { useCompare }        from './hooks/useCompare'
+import { useProductData }    from './hooks/useProductData'
+import { useEditMode }       from './hooks/useEditMode'
 import { useCustomProducts } from './hooks/useCustomProducts'
 
 export default function App() {
@@ -56,17 +55,15 @@ export default function App() {
     else removeFromCompare(id)
   }
 
-  const handleAddProduct = (fields) => {
-    addProduct(fields)
+  const handleDeleteProduct = (product) => {
+    if (product.isCustom) deleteCustomProduct(product.id)
+    else hideBuiltInProduct(product.id)
   }
 
-  const handleDeleteProduct = (product) => {
-    if (product.isCustom) {
-      deleteCustomProduct(product.id)
-    } else {
-      hideBuiltInProduct(product.id)
-    }
-  }
+  const allVisibleProducts = [
+    ...products.filter(p => !hiddenIds.includes(p.id)),
+    ...customProducts,
+  ]
 
   const sharedProps = {
     favs,
@@ -74,7 +71,7 @@ export default function App() {
     compareList,
     onAddCompare: addToCompare,
     inCompare,
-    products,
+    products: allVisibleProducts,
     editMode,
   }
 
@@ -92,7 +89,7 @@ export default function App() {
 
       {showAddModal && (
         <AddProductModal
-          onSave={handleAddProduct}
+          onSave={addProduct}
           onClose={() => setShowAddModal(false)}
         />
       )}
@@ -109,8 +106,6 @@ export default function App() {
                 onCategory={setActiveCategory}
                 activeBrand={activeBrand}
                 onBrand={setActiveBrand}
-                customProducts={customProducts}
-                hiddenIds={hiddenIds}
                 onAddProduct={() => setShowAddModal(true)}
               />
             }
@@ -120,7 +115,9 @@ export default function App() {
             element={
               <ProductDetailPage
                 {...sharedProps}
-                getProduct={getProduct}
+                getProduct={id =>
+                  allVisibleProducts.find(p => p.id === id) || null
+                }
                 saveOverride={saveOverride}
                 clearFieldOverride={clearFieldOverride}
                 isOverridden={isOverridden}
@@ -128,7 +125,6 @@ export default function App() {
                 getNotes={getNotes}
                 deleteNote={deleteNote}
                 onDeleteProduct={handleDeleteProduct}
-                customProducts={customProducts}
               />
             }
           />
@@ -136,7 +132,7 @@ export default function App() {
             path="/compare"
             element={
               <ComparePage
-                products={products}
+                products={allVisibleProducts}
                 compareList={compareList}
                 onRemove={handleCompareToggle}
                 onClear={clearCompare}
@@ -151,37 +147,6 @@ export default function App() {
             path="/notes"
             element={
               <FieldNotesPage allNotes={allNotes} deleteNote={deleteNote} />
-            }
-          />
-          <Route
-            path="/competitor/:id"
-            element={
-              <CompetitorDetailPage
-                {...sharedProps}
-                saveOverride={saveOverride}
-                clearFieldOverride={clearFieldOverride}
-                addNote={addNote}
-                getNotes={getNotes}
-                deleteNote={deleteNote}
-                onDeleteProduct={handleDeleteProduct}
-              />
-            }
-          />
-          <Route
-            path="/custom/:id"
-            element={
-              <ProductDetailPage
-                {...sharedProps}
-                getProduct={id => customProducts.find(p => p.id === id) || null}
-                saveOverride={saveOverride}
-                clearFieldOverride={clearFieldOverride}
-                isOverridden={isOverridden}
-                addNote={addNote}
-                getNotes={getNotes}
-                deleteNote={deleteNote}
-                onDeleteProduct={handleDeleteProduct}
-                customProducts={customProducts}
-              />
             }
           />
           <Route

@@ -1,13 +1,9 @@
 import { CATEGORIES, BRANDS, COMPETITOR_BRANDS } from '../data/index'
 
-const COMPETITOR_IDS = new Set(COMPETITOR_BRANDS.map(b => b.id))
-
 export default function FilterPills({ activeCategory, onCategory, activeBrand, onBrand, counts }) {
-  const competitorActive = COMPETITOR_IDS.has(activeBrand)
-
   return (
     <div className="space-y-3">
-      {/* Category pills */}
+
       <div className="flex flex-wrap gap-2">
         {CATEGORIES.map(({ id, label }) => (
           <button
@@ -29,10 +25,9 @@ export default function FilterPills({ activeCategory, onCategory, activeBrand, o
         ))}
       </div>
 
-      {/* Our brand pills */}
       <div className="flex flex-wrap gap-2 items-center">
         <span className="text-xs text-gray-400 font-medium pr-1">Our lines:</span>
-        {BRANDS.map(({ id, label }) => (
+        {BRANDS.filter(b => b.id === 'all' || b.id === 'dulux' || b.id === 'ppg').map(({ id, label }) => (
           <button
             key={id}
             onClick={() => onBrand(id)}
@@ -47,7 +42,6 @@ export default function FilterPills({ activeCategory, onCategory, activeBrand, o
         ))}
       </div>
 
-      {/* Competitor brand pills */}
       <div className="flex flex-wrap gap-2 items-center">
         <span className="text-xs text-gray-400 font-medium pr-1">Competitors:</span>
         {COMPETITOR_BRANDS.map(({ id, label }) => (
@@ -69,6 +63,7 @@ export default function FilterPills({ activeCategory, onCategory, activeBrand, o
           </button>
         ))}
       </div>
+
     </div>
   )
 }
