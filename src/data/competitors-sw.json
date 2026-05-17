@@ -128,22 +128,17 @@
     "brand": "Sherwin-Williams",
     "brandKey": "sw",
     "name": "ProMar 200 Zero V.O.C. Interior Latex Flat",
-    "code": "K39W00051",
+    "shortName": "ProMar 200 Zero V.O.C. Interior Latex",
+    "code": "B30W12651",
     "category": "Interior Paint",
-    "description": "Durable, professional quality interior vinyl acrylic finish for use on walls and ceilings of primed plaster, wallboard, wood, masonry, and primed metal. Zero VOC formula provides excellent hide and colour development when tinted with SherColor.",
+    "description": "ProMar 200 Zero V.O.C. Interior Latex Flat is a durable, professional quality, interior vinyl acrylic finish for use on walls and ceilings of primed plaster, wallboard, wood, masonry, and primed metal.",
     "sheens": [
       "Flat"
     ],
-    "voc": "Less than 50 grams per litre; 0.42 lbs. per gallon",
-    "coverage": "350-400 sq. ft. per gallon @ 4 mils wet",
-    "touchDry": "1 hour",
-    "recoat": "4 hours",
-    "sizes": [
-      "1 Gallon",
-      "5 Gallon"
-    ],
-    "tdsUrl": "https://www.sherwin-williams.com/content/dam/sherwin-williams/documents/product-data-sheets/en/K39-ProMar200-Interior-PDS.pdf",
-    "shortName": "ProMar 200 Zero V.O.C. Interior Latex",
+    "voc": "Less than 50 grams per litre; 0.42 lbs. per gallon (as per 40 CFR 59.406)",
+    "coverage": "350-400 sq. ft. per gallon @ 4 mils wet, 1.4 mils dry",
+    "touchDry": "1 Hour @ 77°F, 50% RH",
+    "recoat": "4 Hours @ 77°F, 50% RH",
     "filmThicknessWet": "4 mils",
     "filmThicknessDry": "1.4 mils",
     "finish": "Vinyl Acrylic",
@@ -156,24 +151,36 @@
       "Bright Yellow",
       "Dover White (Do Not Tint)"
     ],
+    "sizes": [
+      "1 Gallon",
+      "5 Gallon"
+    ],
     "surfaces": [
       "Primed plaster",
       "Wallboard",
       "Wood",
       "Masonry",
-      "Primed metal"
+      "Primed metal",
+      "Concrete",
+      "Cement block"
     ],
     "idealUses": [
       "Walls",
       "Ceilings"
     ],
     "features": [
-      "Durable professional quality interior vinyl acrylic finish",
-      "Contains agents to inhibit the growth of mold and mildew on the paint film surface",
-      "Zero VOC formula complies with OTC, CARB, and LEED emissions requirements",
-      "Excellent hide and colour development when tinted with SherColor"
+      "Durable, professional quality interior vinyl acrylic finish",
+      "Anti-microbial agents inhibit the growth of mold and mildew on the paint film surface",
+      "Zero VOC formula — less than 50 g/L (0.42 lbs./gal.)",
+      "Complies with OTC, OTC Phase II, SCAQMD, CARB, CARB SCM 2007, CARB SCM 2020, and Canada VOC regulations",
+      "LEED v4 & v4.1 Emissions and VOC certified",
+      "EPD-NSF Certified",
+      "MPI Certified",
+      "No reduction needed; apply at temperatures above 50°F",
+      "36-month shelf life (unopened)"
     ],
-    "imageUrl": "/images/products/sw-promar-200-zero-voc-interior.jpg"
+    "tdsUrl": "https://www.sherwin-williams.com/content/dam/sherwin-williams/documents/product-data-sheets/en/K39-ProMar200-Interior-PDS.pdf",
+    "imageUrl": "/images/products/sw-promar-200-interior.jpg"
   },
   {
     "id": "sw-promar-400-interior",
